@@ -4,7 +4,7 @@ FROM mendix/mendix-buildpack:10.13.0
 # Set environment variables
 ENV MENDIX_HOME /opt/mendix
 ENV M2EE_ADMIN_PORT 4444
-ENV M2EE_ADMIN_PASS=admin  # Replace with your desired admin password
+ENV M2EE_ADMIN_PASS="admin"  # Replace with your desired admin password
 
 # Copy your Mendix application files into the Docker image
 COPY . ${MENDIX_HOME}/
