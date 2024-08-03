@@ -1,16 +1,21 @@
 # Use an appropriate base image for your Mendix application
 FROM mendixdevops/uptime-ci:latest
 
+# Use the official Mendix Docker base image
+#FROM mendix/runtime:latest
+
 # Set environment variables
-ENV M2EE_ADMIN_PORT 4444
-ENV M2EE_ADMIN_PASS admin  # Replace with your desired admin password
+ENV JAVA_HOME='/opt/java'
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
-# Copy your Mendix application deployment package into the Docker image
-COPY App.mda /opt/mendix/data/model/
+# Copy your Mendix deployment archive into the container
+COPY deployment/model.mda /opt/mendix/build/model/model.mda
 
-# Expose the necessary ports for Mendix runtime
-EXPOSE 8080 ${M2EE_ADMIN_PORT}
+# Set the working directory
+WORKDIR /opt/mendix/build
 
-# Start the Mendix runtime
-CMD ["bash", "-c", "/usr/bin/start-mendix && tail -f /opt/mendix/log/*.log"]
+# Expose the port Mendix runs on
+EXPOSE 8080
 
+# Start the Mendix app when the container runs
+CMD ["/opt/mendix/build/start.sh"]
