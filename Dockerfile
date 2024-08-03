@@ -1,5 +1,5 @@
 # Use an appropriate base image for your Mendix application
-FROM mendix/runner:latest
+FROM mendixdevops/uptime-ci:latest
 
 # Set environment variables
 ENV M2EE_ADMIN_PORT 4444
